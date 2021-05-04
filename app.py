@@ -102,9 +102,7 @@ async def update_student(id: str, student: UpdateStudentModel = Body(...)):
         update_result = await db["students"].update_one({"_id": id}, {"$set": student})
 
         if update_result.modified_count == 1:
-            if (
-                    updated_student := await db["students"].find_one({"_id": id})
-            ) is not None:
+            if (updated_student := await db["students"].find_one({"_id": id})) is not None:
                 return updated_student
 
     if (existing_student := await db["students"].find_one({"_id": id})) is not None:

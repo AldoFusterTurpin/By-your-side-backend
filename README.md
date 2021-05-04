@@ -12,3 +12,6 @@ export MONGODB_URL="mongodb+srv://<username>:<password>@<url>/<db>?retryWrites=t
 uvicorn app:app --reload
 
 It will run on http://localhost:8000
+
+API documentation:
+http://127.0.0.1:8000/docs
