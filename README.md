@@ -15,3 +15,6 @@ It will run on http://localhost:8000
 
 API documentation:
 http://127.0.0.1:8000/docs
+
+Structure of the app:
+https://fastapi.tiangolo.com/tutorial/bigger-applications/
