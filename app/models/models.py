@@ -26,11 +26,12 @@ class PyObjectId(ObjectId):
 # fitxa tècnica
 class PersonalRecord(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    description: str = Field(...)
 
 
 class ClientModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    fullName: str = Field(...)
+    fullName: str = Field()
     joinDate: datetime.date = Field(default=date.today())
     personalRecord: List[PersonalRecord] = Field(...)
 
