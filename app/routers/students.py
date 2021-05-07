@@ -33,7 +33,8 @@ async def list_students():
     "/students/{id}", response_description="Get a single student", response_model=ClientModel
 )
 async def show_student(id: str):
-    if (student := await db["students"].find_one({"_id": id})) is not None:
+    student = await db["students"].find_one({"_id": id})
+    if student is not None:
         return student
 
     raise HTTPException(status_code=404, detail=f"Student {id} not found")
@@ -47,10 +48,12 @@ async def update_student(id: str, student: UpdateStudentModel = Body(...)):
         update_result = await db["students"].update_one({"_id": id}, {"$set": student})
 
         if update_result.modified_count == 1:
-            if (updated_student := await db["students"].find_one({"_id": id})) is not None:
+            updated_student = await db["students"].find_one({"_id": id})
+            if updated_student is not None:
                 return updated_student
 
-    if (existing_student := await db["students"].find_one({"_id": id})) is not None:
+    existing_student = await db["students"].find_one({"_id": id})
+    if existing_student is not None:
         return existing_student
 
     raise HTTPException(status_code=404, detail=f"Student {id} not found")

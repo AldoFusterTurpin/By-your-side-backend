@@ -17,13 +17,32 @@ pip install -r requirements.txt
 # Configure the location of your MongoDB database:
 export MONGODB_URL="mongodb+srv://<username>:<password>@<url>/<db>?retryWrites=true&w=majority"
 
-# Start the service:
-uvicorn app:app --reload
+# Start the API service:
+uvicorn app.main:app --reload
 
-It will run on http://localhost:8000
+API will run on http://localhost:8000
 
 API documentation:
 http://127.0.0.1:8000/docs
 
 Structure of the app:
 https://fastapi.tiangolo.com/tutorial/bigger-applications/
+
+# Execute the app using Docker:
+# Create docker image
+docker build -t pae_image .
+
+# Run Docker container
+docker run -d --name pae_container -p 80:80 pae_image
+
+# Execute MongoDB inside docker
+https://medium.com/codervlogger/python-mongodb-tutorial-using-docker-52f330852b4c
+https://www.bmc.com/blogs/mongodb-docker-container/
+
+docker-compose up -d
+
+docker exec -it mongodb bash
+
+docker rmi mongo
+
+docker logs mongodb
