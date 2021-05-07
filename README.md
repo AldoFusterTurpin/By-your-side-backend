@@ -35,14 +35,21 @@ docker build -t pae_image .
 # Run Docker container
 docker run -d --name pae_container -p 80:80 pae_image
 
-# Execute MongoDB inside docker
+# Execute MongoDB inside docker for testing purposes
 https://medium.com/codervlogger/python-mongodb-tutorial-using-docker-52f330852b4c
 https://www.bmc.com/blogs/mongodb-docker-container/
 
+# To execute docker compose file
 docker-compose up -d
 
+# To enter inside mongoDB container and explore
 docker exec -it mongodb bash
 
+# To remove mongo docker image 
 docker rmi mongo
 
+# To show logs from container
 docker logs mongodb
+
+# Export MongoDB local URL for testing purposes
+export MONGODB_URL="mongodb://localhost:27017"
