@@ -4,5 +4,5 @@ router = APIRouter()
 
 
 @router.get("/")
-async def update_admin():
+async def get_admin():
     return {"message": "Admin getting schwifty"}

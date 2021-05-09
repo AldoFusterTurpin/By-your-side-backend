@@ -13,7 +13,7 @@ class ClientModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     fullName: str = Field()
     joinDate: datetime.date = Field(default=date.today())
-    personalRecord: List[PersonalRecord] = Field(...)
+    personalRecord: List[PersonalRecord] = []
 
     class Config:
         allow_population_by_field_name = True
@@ -21,7 +21,7 @@ class ClientModel(BaseModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "fullName": "Simple Women Name",
+                "fullName": "Name Of Women",
                 "joinDate": "2021-05-04",
             }
         }

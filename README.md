@@ -39,8 +39,8 @@ docker run -d --name pae_container -p 80:80 pae_image
 https://medium.com/codervlogger/python-mongodb-tutorial-using-docker-52f330852b4c
 https://www.bmc.com/blogs/mongodb-docker-container/
 
-# To execute docker compose file
-docker-compose up -d
+# To execute docker compose file and start mongoDB container
+docker compose up -d
 
 # To enter inside mongoDB container and explore
 docker exec -it mongodb bash
@@ -53,3 +53,6 @@ docker logs mongodb
 
 # Export MongoDB local URL for testing purposes
 export MONGODB_URL="mongodb://localhost:27017"
+
+# General Notes
+Field(...) is used to mark a class attribute as mandatory.
