@@ -21,7 +21,9 @@ router = fastapi.APIRouter(tags=["clients"])
 
 @router.get(CLIENTS_PATH, response_description="Get clients", response_model=List[ClientModel])
 async def get_clients():
-    return await my_db[CLIENTS_COLLECTION].find().to_list(1000)
+    cursor = my_db[CLIENTS_COLLECTION].find()
+    return [item async for item in cursor] # PEP 530 -- Asynchronous Comprehensions
+    # return await my_db[CLIENTS_COLLECTION].find().to_list(1000) # <- before
 
 
 @router.post(CLIENTS_PATH, response_description="Add new client", response_model=ClientModel)

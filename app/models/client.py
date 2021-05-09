@@ -13,7 +13,7 @@ class ClientModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     fullName: str = Field()
     joinDate: datetime.date = Field(default=date.today())
-    personalRecord: List[PersonalRecord] = []
+    personalRecord: List[PersonalRecord] = None
 
     class Config:
         allow_population_by_field_name = True
