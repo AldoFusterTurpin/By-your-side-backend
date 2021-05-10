@@ -14,7 +14,8 @@ ID_PATH = "/{id}"
 SPECIFIC_STUDENT_PATH = "/students/{id}"
 CREATE_RANDOM_STUDENT_PATH = "/create_random_student"
 
-motor_client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
+MONGODB_URL = os.environ["MONGODB_URL"]
+motor_client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL)
 my_db = motor_client.college
 
 router = fastapi.APIRouter(tags=["students"])
