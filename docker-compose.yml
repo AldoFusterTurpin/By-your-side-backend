@@ -8,3 +8,12 @@ services:
     ports:
       - 27017:27017
     restart: unless-stopped
+
+#  web:
+#    build: .
+#    environment:
+#      - MONGODB_URL=mongodb://localhost:27017
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - mongodb
