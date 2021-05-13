@@ -4,7 +4,7 @@ services:
     image: mongo
     container_name: mongodb
     volumes:
-      - /Users/aldofusterturpin/git/By-your-side-backend/database:/data/db
+      - /Users/mireiabosquemari/By-your-side-backend/database:/data/db
     ports:
       - 27017:27017
     restart: unless-stopped
