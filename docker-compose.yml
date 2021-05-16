@@ -8,10 +8,9 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
     container_name: mongodb
-#    volumes:
-#      - ./database:/data/db
+    volumes:
+      - data-volume:/data/db
     restart: unless-stopped
-
   web:
     build: .
     environment:
@@ -19,3 +18,5 @@ services:
     container_name: fast_api
     ports:
       - "8000:8000"
+volumes:
+    data-volume:
