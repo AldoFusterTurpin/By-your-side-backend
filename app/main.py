@@ -1,3 +1,5 @@
+import os
+
 import uvicorn
 from fastapi import Depends, FastAPI
 
@@ -5,6 +7,9 @@ from .dependencies import get_token_header
 from .internal import admin
 from .routers import items, clients, students
 from fastapi.middleware.cors import CORSMiddleware
+
+MONGODB_URL = os.environ["MONGODB_URL"]
+
 
 # app = FastAPI(dependencies=[Depends(get_query_token)])
 app = FastAPI()
