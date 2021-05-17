@@ -13,6 +13,7 @@ class ClientModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     fullName: str = Field()
     joinDate: datetime.date = Field(default=date.today())
+    Risc: str = Field(...)  #enumeració [baix, mitjà, alt]
     personalRecord: List[PersonalRecord] = None
 
     class Config:
@@ -23,5 +24,6 @@ class ClientModel(BaseModel):
             "example": {
                 "fullName": "Name Of Women",
                 "joinDate": "2021-05-04",
+                "Risc": "Alt"
             }
         }
