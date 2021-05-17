@@ -2,18 +2,21 @@ version: "3.8"
 services:
   mongodb:
     image: mongo
-    container_name: mongodb
-    volumes:
-      - /Users/mireiabosquemari/By-your-side-backend/database:/data/db
     ports:
       - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    container_name: mongodb
+    volumes:
+      - data-volume:/data/db
     restart: unless-stopped
-
-#  web:
-#    build: .
-#    environment:
-#      - MONGODB_URL=mongodb://localhost:27017
-#    ports:
-#      - "8000:8000"
-#    depends_on:
-#      - mongodb
+  web:
+    build: .
+    environment:
+      - MONGODB_URL=mongodb://root:root@mongodb:27017
+    container_name: fast_api
+    ports:
+      - "8000:8000"
+volumes:
+    data-volume:
