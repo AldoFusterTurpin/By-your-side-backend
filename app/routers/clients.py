@@ -14,9 +14,7 @@ CLIENTS_PATH = "/clients"
 
 CLIENTS_COLLECTION = "clients"
 
-MONGODB_URL = os.environ["MONGODB_URL"]
-
-motor_client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL)
+motor_client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
 my_db = motor_client["college"]
 router = fastapi.APIRouter(tags=["clients"])
 

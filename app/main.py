@@ -10,7 +10,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 MONGODB_URL = os.environ["MONGODB_URL"]
 
-
 # app = FastAPI(dependencies=[Depends(get_query_token)])
 app = FastAPI()
 
