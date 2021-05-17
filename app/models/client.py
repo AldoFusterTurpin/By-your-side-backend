@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 
 from app.models.pyobject import PyObjectId
 from app.models.personal_record import PersonalRecord
+from app.models.Etapa import Etapa
 
 
 class ClientModel(BaseModel):
@@ -15,6 +16,7 @@ class ClientModel(BaseModel):
     joinDate: datetime.date = Field(default=date.today())
     Risc: str = Field(...)  #enumeració [baix, mitjà, alt]
     personalRecord: List[PersonalRecord] = None
+    Etapa: Etapa = None
 
     class Config:
         allow_population_by_field_name = True
@@ -25,5 +27,6 @@ class ClientModel(BaseModel):
                 "fullName": "Name Of Women",
                 "joinDate": "2021-05-04",
                 "Risc": "Alt"
+                "Etapa: "
             }
         }
