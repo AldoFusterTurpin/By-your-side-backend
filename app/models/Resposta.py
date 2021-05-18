@@ -6,7 +6,7 @@ from app.models.pyobject import PyObjectId
 
 class Resposta(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    Resposta: str = Field(...)
+    text: str = Field(...)
 
     class Config:
         allow_population_by_field_name = True
