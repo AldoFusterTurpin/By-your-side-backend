@@ -8,13 +8,15 @@ import motor.motor_asyncio
 import fastapi
 
 from app.models.client import ClientModel
+from ..config import MONGODB_URL
+
 
 SPECIFIC_CLIENT_PATH = "/clients/{id}"
 CLIENTS_PATH = "/clients"
 
 CLIENTS_COLLECTION = "clients"
 
-motor_client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
+motor_client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL)
 my_db = motor_client["college"]
 router = fastapi.APIRouter(tags=["clients"])
 
@@ -39,7 +41,7 @@ async def create_client(input_client: ClientModel = Body(...)):
 @router.get(SPECIFIC_CLIENT_PATH, response_description="Get client by id", response_model=ClientModel)
 async def get_client_by_id(client_id: str):
     client_found = await my_db[CLIENTS_COLLECTION].find_one({"_id": client_id})
-    if client_found is not None:
-        return client_found
-
-    raise HTTPException(status_code=404, detail=f"Student {client_id} not found")
+    if client_found is None:
+        raise HTTPException(status_code=404, detail=f"Student {client_id} not found")
+    
+    return client_found

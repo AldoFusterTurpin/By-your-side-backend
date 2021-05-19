@@ -11,7 +11,7 @@ class PersonalRecord(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     area: str = Field(...)  # enumeració
     nivell: str = Field(...)  # enumeració [baix, mitjà, alt]
-    forumlari: List[Preguntes] = None
+    preguntes: List[Preguntes] = None
 
     class Config:
         allow_population_by_field_name = True
@@ -19,8 +19,8 @@ class PersonalRecord(BaseModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "Area": "",
-                "Nivell": ""
-
+                "area": "",
+                "nivell": "",
+                "formulari": "",
             }
         }

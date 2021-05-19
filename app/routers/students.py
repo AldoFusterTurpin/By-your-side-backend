@@ -8,13 +8,13 @@ import fastapi
 
 from app.models.update_student import UpdateStudentModel
 from app.models.client import ClientModel
+from ..config import MONGODB_URL
 
 STUDENTS_PATH = "/students"
 ID_PATH = "/{id}"
 SPECIFIC_STUDENT_PATH = "/students/{id}"
 CREATE_RANDOM_STUDENT_PATH = "/create_random_student"
 
-MONGODB_URL = os.environ["MONGODB_URL"]
 motor_client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL)
 my_db = motor_client.college
 

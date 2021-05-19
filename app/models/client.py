@@ -26,6 +26,9 @@ class ClientModel(BaseModel):
             "example": {
                 "fullName": "Name Of Women",
                 "joinDate": "2021-05-04",
-                "risc": "Alt"
+                "risc": "Alt",
+                # "personalRecord": {
+                #     "":"h",
+                # }
             }
         }
