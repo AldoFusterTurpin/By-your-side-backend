@@ -2,12 +2,11 @@ import datetime
 from datetime import date
 from typing import List
 
+from app.models.etapa import Etapa
+from app.models.personal_record import PersonalRecord
+from app.models.pyobject import PyObjectId
 from bson import ObjectId
 from pydantic import BaseModel, Field
-
-from app.models.pyobject import PyObjectId
-from app.models.personal_record import PersonalRecord
-from app.models.etapa import Etapa
 
 
 class ClientModel(BaseModel):
@@ -15,8 +14,8 @@ class ClientModel(BaseModel):
     fullName: str = Field()
     joinDate: datetime.date = Field(default=date.today())
     risc: str = Field(...)  #enumeració [baix, mitjà, alt]
+    nomEtapa: str = "Fase Inicial"
     personalRecord: List[PersonalRecord] = None
-    etapa: Etapa = None
 
     class Config:
         allow_population_by_field_name = True
@@ -27,6 +26,7 @@ class ClientModel(BaseModel):
                 "fullName": "Name Of Women",
                 "joinDate": "2021-05-04",
                 "risc": "Alt",
+                "nomEtapa" : "Fase Inicial"
                 # "personalRecord": {
                 #     "":"h",
                 # }

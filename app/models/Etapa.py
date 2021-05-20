@@ -6,7 +6,7 @@ from app.models.pyobject import PyObjectId
 
 class Etapa(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    Descripció: str = Field(...)
+    descripció: str = Field(...)
 
     class Config:
         allow_population_by_field_name = True

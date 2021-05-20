@@ -14,6 +14,6 @@ class Resposta(BaseModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-
+                "text": "Ara mateix viu a Barcelona"
             }
         }

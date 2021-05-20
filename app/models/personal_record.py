@@ -1,16 +1,16 @@
+from typing import List
+
+from app.models.pregunta import Preguntes
+from app.models.pyobject import PyObjectId
 from bson import ObjectId
 from pydantic import BaseModel, Field
-from app.models.pyobject import PyObjectId
-from app.models.pregunta import Preguntes
-
-from typing import List
 
 
 # fitxa tècnica
 class PersonalRecord(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     area: str = Field(...)  # enumeració
-    nivell: str = Field(...)  # enumeració [baix, mitjà, alt]
+    nivellActual: str = Field(...)  # enumeració [baix, mitjà, alt]
     preguntes: List[Preguntes] = None
 
     class Config:
@@ -19,8 +19,8 @@ class PersonalRecord(BaseModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "area": "",
-                "nivell": "",
+                "area": "Econòmica",
+                "nivellActual": "",
                 "formulari": "",
             }
         }
