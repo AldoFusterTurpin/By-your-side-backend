@@ -5,10 +5,10 @@ from app.models.pyobject import PyObjectId
 from app.models.resposta import Resposta
 
 
-class Preguntes(BaseModel):
+class Pregunta(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     pregunta: str = Field(...)
-    resposta: Resposta = None
+    resposta: str = None
 
     class Config:
         allow_population_by_field_name = True
@@ -16,6 +16,7 @@ class Preguntes(BaseModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-
+                "pregunta": "A on viu?",
+                "resposta?" : "Actualment viu a Barcelona"
             }
         }

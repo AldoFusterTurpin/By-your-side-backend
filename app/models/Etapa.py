@@ -4,8 +4,9 @@ from pydantic import BaseModel, Field
 from app.models.pyobject import PyObjectId
 
 
-class Etapa(BaseModel):
+class EtapaModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    nom: str = Field(...)
     descripció: str = Field(...)
 
     class Config:
@@ -14,6 +15,7 @@ class Etapa(BaseModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-
+                "nom" : "etapa inicial",
+                "descripció" : "Primer punt de contacte amb l'entitat Valentes i Acompanyades",
             }
         }

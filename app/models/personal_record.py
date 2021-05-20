@@ -1,6 +1,6 @@
 from typing import List
 
-from app.models.pregunta import Preguntes
+from app.models.pregunta import Pregunta
 from app.models.pyobject import PyObjectId
 from bson import ObjectId
 from pydantic import BaseModel, Field
@@ -10,8 +10,9 @@ from pydantic import BaseModel, Field
 class PersonalRecord(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     area: str = Field(...)  # enumeració
-    nivellActual: str = Field(...)  # enumeració [baix, mitjà, alt]
-    preguntes: List[Preguntes] = None
+    nivellActual: int = Field(..., le=5) #
+    nivellObjectiu: int = Field(..., le=5)
+    preguntes: List[Pregunta] = None
 
     class Config:
         allow_population_by_field_name = True

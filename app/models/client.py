@@ -2,7 +2,7 @@ import datetime
 from datetime import date
 from typing import List
 
-from app.models.etapa import Etapa
+from app.models.etapa import EtapaModel
 from app.models.personal_record import PersonalRecord
 from app.models.pyobject import PyObjectId
 from bson import ObjectId
