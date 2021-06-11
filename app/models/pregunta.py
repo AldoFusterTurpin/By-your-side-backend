@@ -17,6 +17,6 @@ class Pregunta(BaseModel):
         schema_extra = {
             "example": {
                 "pregunta": "A on viu?",
-                "resposta?" : "Actualment viu a Barcelona"
+                "resposta" : "Actualment viu a Barcelona"
             }
         }

@@ -9,9 +9,9 @@ from pydantic import BaseModel, Field
 # fitxa tècnica
 class PersonalRecord(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    area: str = Field(...)  # enumeració
-    nivellActual: int = Field(..., le=5) #
-    nivellObjectiu: int = Field(..., le=5)
+    area: str = Field(...)  # enumeració [social, economòmica, salut]
+    nivellActual: int = Field(..., default=0, ge=0,le=5)
+    nivellObjectiu: int = Field(..., ge=0, le=5)
     preguntes: List[Pregunta] = None
 
     class Config:
@@ -21,7 +21,13 @@ class PersonalRecord(BaseModel):
         schema_extra = {
             "example": {
                 "area": "Econòmica",
-                "nivellActual": "",
-                "formulari": "",
+                "nivellActual": "0",
+                "nivellObjectiu": "4",
+                "preguntes": [
+                    { 
+                        "pregunta" : "A on viu ?",
+                        "resposta" : "Viu a Barcelona"
+                    }
+                ]
             }
         }

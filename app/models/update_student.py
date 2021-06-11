@@ -4,7 +4,7 @@ from bson import ObjectId
 from pydantic import BaseModel, EmailStr
 
 
-class UpdateStudentModel(BaseModel):
+class UpdateStudent(BaseModel):
     firstName: Optional[str]
     email: Optional[EmailStr]
     course: Optional[str]
