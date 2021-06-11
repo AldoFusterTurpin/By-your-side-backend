@@ -74,6 +74,13 @@ $ export MONGODB_URL="mongodb+srv://<username>:<password>@<url>/<db>?retryWrites
 # General Notes
 Field(...) is used to mark a class attribute as mandatory.
 
+# MongoDB Schema Design Guidelines
+https://docs.mongodb.com/manual/core/data-modeling-introduction/
+https://developer.mongodb.com/article/mongodb-schema-design-best-practices/
+https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-1
+https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-2
+https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-3
+
 # Authors
 - Aldo Fuster Turpin (aldo.fuster@estudiantat.upc.edu)
 - Mireia Bosque Marí (mireia.bosque@estudiantat.upc.edu)

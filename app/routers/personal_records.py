@@ -8,13 +8,11 @@ import motor.motor_asyncio
 import fastapi
 
 from app.models.client import ClientModel
-from app.models.personal_record import PersonalRecord
-
 from ..config import MONGODB_URL
 
 
 SPECIFIC_CLIENT_PATH = "/clients/{id}"
-CLIENTS_PATH = "/clients"
+PERSONAL_RECORDS_PATH = "/personal_records"
 
 CLIENTS_COLLECTION = "clients"
 DB_NAME = "clients"
@@ -24,23 +22,14 @@ my_db = motor_client["by_your_side"]
 router = fastapi.APIRouter(tags=["clients"])
 
 
-@router.get(CLIENTS_PATH, response_description="Get clients", response_model=List[ClientModel])
+@router.get(PERSONAL_RECORDS_PATH, response_description="Get clients", response_model=List[ClientModel])
 async def get_clients():
     cursor = my_db[CLIENTS_COLLECTION].find()
     return [item async for item in cursor]  # PEP 530 -- Asynchronous Comprehensions
     # return await my_db[CLIENTS_COLLECTION].find().to_list(1000) # <- before
 
 
-@router.get(SPECIFIC_CLIENT_PATH + "/personal_records", response_description="Get personal record of specific client by id", response_model=PersonalRecord)
-async def get_personal_record(client_id: str):
-    client_found = await my_db[CLIENTS_COLLECTION].find_one({"_id": client_id})
-    print(client_found)
-    if client_found is None:
-        raise HTTPException(status_code=404, detail=f"Student {client_id} not found")
-    
-    return client_found["personalRecord"]
-
-@router.post(CLIENTS_PATH, response_description="Add new client", response_model=ClientModel)
+@router.post(PERSONAL_RECORDS_PATH, response_description="Add new client", response_model=ClientModel)
 async def create_client(input_client: ClientModel = Body(...)):
     client_encoded = jsonable_encoder(input_client)
 
