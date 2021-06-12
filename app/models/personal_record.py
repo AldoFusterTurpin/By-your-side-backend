@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 class PersonalRecord(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     area: str = Field(...)  # enumeració [social, economòmica, salut]
-    nivellActual: int = Field(..., default=0, ge=0,le=5)
+    nivellActual: int = Field(..., ge=0,le=5)
     nivellObjectiu: int = Field(..., ge=0, le=5)
     preguntes: List[Pregunta] = None
 
