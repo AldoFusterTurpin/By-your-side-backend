@@ -1,3 +1,9 @@
+# Authors
+- Aldo Fuster Turpin (aldo.fuster@estudiantat.upc.edu)
+- Mireia Bosque Marí (mireia.bosque@estudiantat.upc.edu)
+- Marc Almirall Bertran (marc.almirall@estudiantat.upc.edu)
+- Marina Díaz Reyes (marina.diaz@estudiantat.upc.edu)
+
 # By-your-side-backend
 Backend of the By Your Side project for the PAE university subject (FIB, UPC).
 
@@ -81,8 +87,3 @@ https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-par
 https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-2
 https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-3
 
-# Authors
-- Aldo Fuster Turpin (aldo.fuster@estudiantat.upc.edu)
-- Mireia Bosque Marí (mireia.bosque@estudiantat.upc.edu)
-- Marc Almirall Bertran (marc.almirall@estudiantat.upc.edu)
-- Marina Díaz Reyes (marina.diaz@estudiantat.upc.edu)
