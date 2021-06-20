@@ -19,6 +19,9 @@ It will spawn 2 containers (one for the Python API and another one for MongoDB)
 Just go to the API documentation:
 http://127.0.0.1:8000/docs
 
+### To run the tests, just do:
+$ docker-compose exec web pytest .
+
 ### To clean your workspace just do:
 $ docker compose down
 
