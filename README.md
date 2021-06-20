@@ -16,10 +16,7 @@ $ docker compose up -d --build
 
 It will spawn 2 containers (one for the Python API and another one for MongoDB)
 
-API will run on:
-http://localhost:8000
-
-Just go to API documentation:
+Just go to the API documentation:
 http://127.0.0.1:8000/docs
 
 ### To clean your workspace just do:
