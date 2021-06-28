@@ -70,52 +70,23 @@ async def delete_client(client_id: str):
     raise HTTPException(status_code=404, detail=f"Client {client_id} not found")
 
 
-async def update_client(client_id: str, data: dict):
-    if len(data) < 1:
+async def update_client(client_id: str, client_data: dict):
+    if len(client_data) < 1:
         return False
 
     client = await my_db[CLIENTS_COLLECTION].find_one({"_id": client_id})
-    print(f"client is {client}")
 
     if client:
-        updated_client = await my_db[CLIENTS_COLLECTION].update_one({"_id": client_id}, {"$set": data})
+        updated_client = await my_db[CLIENTS_COLLECTION].update_one({"_id": client_id}, {"$set": client_data})
         if updated_client:
             return True
         return False
 
 @router.put(SPECIFIC_CLIENT_PATH)
 async def update_client_data(client_id: str, req: UpdateClientModel = Body(...)):
-    req = {k: v for k, v in req.dict().items() if v is not None}
-    print(f"req is {req}")
+    req = { k: v for k, v in req.dict().items() if v is not None }
     updated_client = await update_client(client_id, req)
     if updated_client:
         return JSONResponse(status_code=status.HTTP_200_OK, content=updated_client)
     raise HTTPException(status_code=404, detail=f"Client {client_id} not found. Can't update it.")
-
-# @router.patch(SPECIFIC_CLIENT_PATH, response_model=Client)
-# async def update_client(client_id: str, input_client: Client):
-#     stored_client_data = await my_db[CLIENTS_COLLECTION].find_one({"_id": client_id})
-#     if stored_client_data is None:
-#         raise HTTPException(status_code=404, detail=f"Client {client_id} not found. Can't update it.")
-
-#     print(f"stored_client_data: {stored_client_data}")
-
-#     stored_client_model = Client(**stored_client_data)
-
-#     print(f"stored_client_model: {stored_client_model}")
-
-#     update_data = input_client.dict(exclude_unset=True)
-#     updated_client_data = stored_client_model.copy(update=update_data)
-
-#     print(f"updated_client_data: {updated_client_data}")
-
-#     client_encoded = jsonable_encoder(updated_client_data)
-
-#     print(f"client_encoded: {client_encoded}")
-
-
-#     new_client = await my_db[CLIENTS_COLLECTION].insert_one(client_encoded)
-#     created_client = await my_db[CLIENTS_COLLECTION].find_one({"_id": new_client.inserted_id})
-
-#     return JSONResponse(status_code=status.HTTP_201_CREATED, content=created_client)
 

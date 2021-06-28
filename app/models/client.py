@@ -14,7 +14,7 @@ class Client(BaseModel):
     fullName: str = Field()
     joinDate: datetime.date = Field(default=date.today())
     risc: Optional[str] # = Field(...)  #enumeració [baix, mitjà, alt]
-    etapaId: Optional[PyObjectId] = None
+    etapaId: Optional[str] = None
     personalRecord: Optional[List[PersonalRecord]] = None
 
     class Config:
