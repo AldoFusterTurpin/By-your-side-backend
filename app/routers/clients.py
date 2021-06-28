@@ -6,6 +6,7 @@ from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import motor.motor_asyncio
 import fastapi
+from pymongo.collection import ReturnDocument
 
 from app.models.client import Client
 from app.models.personal_record import PersonalRecord
@@ -70,23 +71,19 @@ async def delete_client(client_id: str):
     raise HTTPException(status_code=404, detail=f"Client {client_id} not found")
 
 
-async def update_client(client_id: str, client_data: dict):
-    if len(client_data) < 1:
-        raise HTTPException(status_code=404, detail=f"Body can't be empty")
-
-    client = await my_db[CLIENTS_COLLECTION].find_one({"_id": client_id})
-
-    if client:
-        updated_client = await my_db[CLIENTS_COLLECTION].update_one({"_id": client_id}, {"$set": client_data})
-        if updated_client:
-            return True
-        return False
-
 @router.put(SPECIFIC_CLIENT_PATH)
-async def update_client_data(client_id: str, req: UpdateClientModel = Body(...)):
-    req = { k: v for k, v in req.dict().items() if v is not None }
-    updated_client = await update_client(client_id, req)
+async def update_client_data(client_id: str, update_client_model: UpdateClientModel = Body(...)):
+    update_client_model_dict = { k: v for k, v in update_client_model.dict().items() if v is not None }
+    if len(update_client_model_dict) < 1:
+        raise HTTPException(status_code=400, detail=f"Body can not be empty")
+
+    update_client_model_dict = jsonable_encoder(update_client_model)
+
+    updated_client = await my_db[CLIENTS_COLLECTION].find_one_and_update({"_id": client_id}, 
+                                                                        {"$set": update_client_model_dict},
+                                                                        return_document=ReturnDocument.AFTER)    
+
     if updated_client:
         return JSONResponse(status_code=status.HTTP_200_OK, content=updated_client)
-    raise HTTPException(status_code=404, detail=f"Client {client_id} not found. Can't update it")
+    raise HTTPException(status_code=404, detail=f"Client {client_id} not found")
 
