@@ -9,6 +9,9 @@ import fastapi
 
 from app.models.client import Client
 from app.models.personal_record import PersonalRecord
+from app.models.update_client import UpdateClientModel
+
+from bson.objectid import ObjectId
 
 from ..config import MONGODB_URL
 
@@ -31,11 +34,10 @@ async def get_clients():
 
 
 @router.get(SPECIFIC_CLIENT_PATH + "/personal_records", response_description="Get personal record of specific client by id", response_model=PersonalRecord)
-async def get_personal_record(client_id: str):
+async def get_client(client_id: str):
     client_found = await my_db[CLIENTS_COLLECTION].find_one({"_id": client_id})
-    print(client_found)
     if client_found is None:
-        raise HTTPException(status_code=404, detail=f"Student {client_id} not found")
+        raise HTTPException(status_code=404, detail=f"Client {client_id} not found")
     
     return client_found["personalRecord"]
 
@@ -53,15 +55,67 @@ async def create_client(input_client: Client = Body(...)):
 async def get_client_by_id(client_id: str):
     client_found = await my_db[CLIENTS_COLLECTION].find_one({"_id": client_id})
     if client_found is None:
-        raise HTTPException(status_code=404, detail=f"Student {client_id} not found")
+        raise HTTPException(status_code=404, detail=f"Client {client_id} not found")
     
     return client_found
 
+
 @router.delete(SPECIFIC_CLIENT_PATH, response_description="Delete a client")
-async def delete_client(id: str):
-    delete_result = await my_db[CLIENTS_COLLECTION].delete_one({"_id": id})
+async def delete_client(client_id: str):
+    delete_result = await my_db[CLIENTS_COLLECTION].delete_one({"_id": client_id})
 
     if delete_result.deleted_count == 1:
         return JSONResponse({"result": "resource deleted"}, status_code=status.HTTP_204_NO_CONTENT)
 
-    raise HTTPException(status_code=404, detail=f"Student {id} not found")
+    raise HTTPException(status_code=404, detail=f"Client {client_id} not found")
+
+
+async def update_client(client_id: str, data: dict):
+    if len(data) < 1:
+        return False
+
+    client = await my_db[CLIENTS_COLLECTION].find_one({"_id": client_id})
+    print(f"client is {client}")
+
+    if client:
+        updated_client = await my_db[CLIENTS_COLLECTION].update_one({"_id": client_id}, {"$set": data})
+        if updated_client:
+            return True
+        return False
+
+@router.put(SPECIFIC_CLIENT_PATH)
+async def update_client_data(client_id: str, req: UpdateClientModel = Body(...)):
+    req = {k: v for k, v in req.dict().items() if v is not None}
+    print(f"req is {req}")
+    updated_client = await update_client(client_id, req)
+    if updated_client:
+        return JSONResponse(status_code=status.HTTP_200_OK, content=updated_client)
+    raise HTTPException(status_code=404, detail=f"Client {client_id} not found. Can't update it.")
+
+# @router.patch(SPECIFIC_CLIENT_PATH, response_model=Client)
+# async def update_client(client_id: str, input_client: Client):
+#     stored_client_data = await my_db[CLIENTS_COLLECTION].find_one({"_id": client_id})
+#     if stored_client_data is None:
+#         raise HTTPException(status_code=404, detail=f"Client {client_id} not found. Can't update it.")
+
+#     print(f"stored_client_data: {stored_client_data}")
+
+#     stored_client_model = Client(**stored_client_data)
+
+#     print(f"stored_client_model: {stored_client_model}")
+
+#     update_data = input_client.dict(exclude_unset=True)
+#     updated_client_data = stored_client_model.copy(update=update_data)
+
+#     print(f"updated_client_data: {updated_client_data}")
+
+#     client_encoded = jsonable_encoder(updated_client_data)
+
+#     print(f"client_encoded: {client_encoded}")
+
+
+#     new_client = await my_db[CLIENTS_COLLECTION].insert_one(client_encoded)
+#     created_client = await my_db[CLIENTS_COLLECTION].find_one({"_id": new_client.inserted_id})
+
+#     return JSONResponse(status_code=status.HTTP_201_CREATED, content=created_client)
+

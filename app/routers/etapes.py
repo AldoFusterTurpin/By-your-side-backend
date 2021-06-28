@@ -48,4 +48,4 @@ async def delete_etapa(id: str):
     if delete_result.deleted_count == 1:
         return JSONResponse({"result": "resource deleted"}, status_code=status.HTTP_204_NO_CONTENT)
 
-    raise HTTPException(status_code=404, detail=f"Student {id} not found")
+    raise HTTPException(status_code=404, detail=f"Etapa {id} not found")
