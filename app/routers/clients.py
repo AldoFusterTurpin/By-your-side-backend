@@ -72,7 +72,7 @@ async def delete_client(client_id: str):
 
 async def update_client(client_id: str, client_data: dict):
     if len(client_data) < 1:
-        return False
+        raise HTTPException(status_code=404, detail=f"Body can't be empty")
 
     client = await my_db[CLIENTS_COLLECTION].find_one({"_id": client_id})
 
@@ -88,5 +88,5 @@ async def update_client_data(client_id: str, req: UpdateClientModel = Body(...))
     updated_client = await update_client(client_id, req)
     if updated_client:
         return JSONResponse(status_code=status.HTTP_200_OK, content=updated_client)
-    raise HTTPException(status_code=404, detail=f"Client {client_id} not found. Can't update it.")
+    raise HTTPException(status_code=404, detail=f"Client {client_id} not found. Can't update it")
 
