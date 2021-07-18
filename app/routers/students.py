@@ -35,7 +35,6 @@ async def create_student(student: Client = Body(...)):
 async def create_student():
     student = Student(fullName="Manolo Provar")
     created_student = await my_db["students"].insert_one(student)
-    print(created_student)
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=created_student)
 
 

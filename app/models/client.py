@@ -1,6 +1,6 @@
 import datetime
 from datetime import date
-from typing import List
+from typing import List, Optional
 
 from app.models.etapa import Etapa
 from app.models.personal_record import PersonalRecord
@@ -13,9 +13,9 @@ class Client(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     fullName: str = Field()
     joinDate: datetime.date = Field(default=date.today())
-    risc: str = Field(...)  #enumeració [baix, mitjà, alt]
-    etapaId: PyObjectId = None
-    personalRecord: List[PersonalRecord] = None
+    risc: Optional[str] # = Field(...)  #enumeració [baix, mitjà, alt]
+    etapaId: Optional[str] = None
+    personalRecord: Optional[List[PersonalRecord]] = None
 
     class Config:
         allow_population_by_field_name = True
