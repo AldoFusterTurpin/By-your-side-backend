@@ -1,5 +1,3 @@
-# TODO: work here
-
 import os
 from typing import List
 

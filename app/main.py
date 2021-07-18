@@ -5,23 +5,13 @@ from fastapi import Depends, FastAPI
 
 from .dependencies import get_token_header
 from .internal import admin
-from .routers import items, clients, students, etapes
+from .routers import clients, etapes
 from fastapi.middleware.cors import CORSMiddleware
 
-# app = FastAPI(dependencies=[Depends(get_query_token)])
 app = FastAPI()
 
 app.include_router(clients.router)
-# app.include_router(items.router) # TODO remove
-# app.include_router(students.router) # TODO remove
 app.include_router(etapes.router)
-# app.include_router(
-#     admin.router,
-#     prefix="/admin",
-#     tags=["admin"],
-#     dependencies=[Depends(get_token_header)],
-#     responses={418: {"description": "This is the description"}},
-# )
 
 origins = ["*"]
 
